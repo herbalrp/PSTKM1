@@ -14,7 +14,7 @@ public class Link {
     private Integer ID;
     private Integer startNode;
     private Integer endNode;
-    private Integer numberOfFibres; // TODO: Czy na pewno tutaj jest to liczba fajberow?
+    private Integer numberOfFibres; // TODO: Czy na pewno tutaj jest to liczba fajberow? // zgodnie z tym co Mycek napisał tak
     private Float costOfFibre;
     private Integer numberOfLambdas; //number of lambdas in a fiber
     
