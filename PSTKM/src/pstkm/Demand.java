@@ -9,6 +9,6 @@ package pstkm;
  *
  * @author Mateusz
  */
-public class demand {
+public class Demand {
     
 }

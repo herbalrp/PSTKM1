@@ -4,10 +4,17 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
+/**
+ * Class that loads configuration file and splits into two blocks
+ * @author robert
+ *
+ */
 public class Parser {
 
-	String path = null;
+	private String netPart = null;
+	private String demandPart=null;
 
 	Parser(String path) throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader(path));
@@ -32,15 +39,65 @@ public class Parser {
 				line = br.readLine();
 			}
 
-			System.out.println(netPart.toString().trim());
-			System.out.println(demandPart.toString().trim());
+			//	System.out.println(netPart.toString().trim());
+			this.setNetPart(netPart.toString().trim());
+			//	System.out.println(demandPart.toString().trim());
+			this.setDemandPart(demandPart.toString().trim());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			System.out.println("Error durring parsing file in Parser constructor: " + e);
 			e.printStackTrace();
 		} finally {
 			br.close();
-		}
+		}		
+	}
 
+	/**
+	 * Method parses the net part of configuration file
+	 * @return List of links
+	 */
+	public ArrayList<Link> parseNetPart(){
+		ArrayList<Link> links= new ArrayList<Link>();
+		if(!netPart.isEmpty() && netPart != null){
+		//System.out.println(netPart);
+		String lines[] = netPart.split("\\r?\\n");
+		
+		for(int i = 1; i<=Integer.parseInt(lines[0]); i++){
+			//System.out.println(lines[i]);
+			String linkParts[] = lines[i].split(" ");
+			Link link = new Link(i, Integer.parseInt(linkParts[0]), Integer.parseInt(linkParts[1]),Integer.parseInt(linkParts[2]),Float.parseFloat(linkParts[3]),Integer.parseInt(linkParts[4]));
+			links.add(link);
+		}
+		
+				return links;
+		}
+		return null;
+	}
+	
+	/**
+	 * Method parses the demand part of configuration file
+	 * @return List of demands
+	 */
+	public ArrayList<Demand> parseDemandPart(){
+		ArrayList<Demand> demands= new ArrayList<Demand>();
+		//System.out.println(demandPart);
+		// TODO: Parsowanie bloku zapotrzebowan
+		return demands;
+	}
+
+	public String getNetPart() {
+		return netPart;
+	}
+
+	public void setNetPart(String netPart) {
+		this.netPart = netPart;
+	}
+
+	public String getDemandPart() {
+		return demandPart;
+	}
+
+	public void setDemandPart(String demandPart) {
+		this.demandPart = demandPart;
 	}
 
 }
