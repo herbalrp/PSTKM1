@@ -29,4 +29,17 @@ class Path {
 		return this.listOfLinks;
 	}
     
+    @Override
+	public String toString() {
+		String s = "PATH ID "+ID+" [ ";
+                for(Integer Link : listOfLinks)
+                {
+                   s+=Link;
+                   s+=" ";
+                }
+                s+="]";
+                
+                return s;
+	}
+    
 }

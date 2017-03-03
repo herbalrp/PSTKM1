@@ -42,6 +42,9 @@ public class PSTKM {
     	for(Link lk : net.getListOfLinks()){
 			System.out.println(lk);
 		}
+        for(Demand lk : net.getListOfDemands()){
+			System.out.println(lk);
+		}
     	
     	
     	

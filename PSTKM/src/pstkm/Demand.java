@@ -26,6 +26,14 @@ public class Demand {
       this.listOfPaths=listOfPaths;
   }
   
+   public Demand(Integer startNode, Integer endNode, Integer demandVolume)
+  {
+      this.startNode=startNode;
+      this.endNode=endNode;
+      this.demandVolume=demandVolume;
+      
+  }
+  
   
   public Integer getstartNode() {
 		return this.startNode;
@@ -40,7 +48,21 @@ public class Demand {
   public ArrayList<Path> getListOfPaths() {
 		return this.listOfPaths;
 	}
+  
+  public void setListOfPaths(ArrayList<Path> listOfPaths) {
+		this.listOfPaths=listOfPaths;
+	}
 
 	
-    
+     @Override
+	public String toString() {
+		String s = "DEMAND [startNode "+startNode+" endNode "+endNode+" demandVolume "+demandVolume+"]"+"\r\n";
+                for(Path path : listOfPaths)
+                {
+                   s+=path.toString();
+                   s+="\r\n";
+                }
+              
+                return s;
+	}
 }

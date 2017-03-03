@@ -79,9 +79,52 @@ public class Parser {
 	 */
 	public ArrayList<Demand> parseDemandPart(){
 		ArrayList<Demand> demands= new ArrayList<Demand>();
-		//System.out.println(demandPart);
-		// TODO: Parsowanie bloku zapotrzebowan
-		return demands;
+		//System.out.println(demandPart);        
+	
+		if(!demandPart.isEmpty() && demandPart != null){
+		String lines[] = demandPart.split("\\r?\\n");
+		
+                Integer numberOfDemand=Integer.parseInt(lines[0]);
+               
+                Integer LineIndex=2;
+                Demand demand;
+                ArrayList<Path> paths;
+                while(numberOfDemand>0)
+                {
+                    String linkParts[] = lines[LineIndex].split(" ");
+                    demand=new Demand(Integer.parseInt(linkParts[0]),Integer.parseInt(linkParts[1]),Integer.parseInt(linkParts[2]));
+                    LineIndex+=1;
+                    linkParts = lines[LineIndex].split(" ");
+                    paths=new ArrayList<Path>();
+                    Integer NumberOfPaths = Integer.parseInt(linkParts[0]);
+                    for(int i=1; i<=NumberOfPaths;i++)
+                    {
+                        LineIndex+=1;
+                        linkParts = lines[LineIndex].split(" ");
+                        ArrayList<Integer> links =new ArrayList<Integer>();
+                        for(int j=1; j<linkParts.length;j++)
+                        {
+                            links.add(Integer.parseInt(linkParts[j]));
+                        }
+                       
+                        paths.add(new Path(Integer.parseInt(linkParts[0]),links));
+                       
+                    }
+                    demand.setListOfPaths(paths);
+                    demands.add(demand);
+                //    System.out.println(demand.toString());
+                    LineIndex+=2;
+                    numberOfDemand-=1;
+                }
+                
+                
+	return demands;
+		}
+		
+			
+	
+	
+		return null;
 	}
 
 	public String getNetPart() {
