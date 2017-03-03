@@ -80,6 +80,43 @@ public class Parser {
 	public ArrayList<Demand> parseDemandPart(){
 		ArrayList<Demand> demands= new ArrayList<Demand>();
 		//System.out.println(demandPart);
+		
+		String dems[] = demandPart.split("\\n\\n");
+		
+		Integer startNode;
+		Integer endNode;
+		Integer demandVolume;
+		Integer numberOfPaths;
+		ArrayList<Path> listOfPaths;
+		
+		for(int i = 1; i<=Integer.parseInt(dems[0]); i++){
+			String demLines[] = dems[i].split("\\r?\\n");
+			
+			//first line of demand
+			String firstLineParts[] = demLines[0].split(" ");
+			startNode=Integer.parseInt(firstLineParts[0]);
+			endNode=Integer.parseInt(firstLineParts[1]);
+			demandVolume=Integer.parseInt(firstLineParts[2]);
+			
+			//second line of demand
+			numberOfPaths=Integer.parseInt(demLines[1]);
+			
+			//other lines - paths
+			
+			
+			for(int j=2; j<demLines.length; j++){
+				
+				
+				//TODO: dorobic parsowanko na Pathy - musiałem już isc na siłke xD
+				
+			}
+			
+			
+				
+		
+			
+			
+		}
 		// TODO: Parsowanie bloku zapotrzebowan
 		return demands;
 	}
