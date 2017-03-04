@@ -26,9 +26,10 @@ public class PSTKM {
     	 * 	zeby to zrobic z IDE to dodajemy to w konfiguracji Run As.. i jest to sciezka
     	 * 	ja wpisalem tam: /Users/robert/Documents/PSTKM_cw/pstkm_cw1.txt
     	 */
+         final Integer NUMBEROFROUNDS=10000;
     	Parser parser = null;
         String pathToFile = "";
-
+       
     	if (args.length > 0) {
             pathToFile = args[0];
 		} else {
@@ -63,7 +64,9 @@ public class PSTKM {
 		}
 
     	//start of DAP brute force
-        DemandAP dap = new DemandAP(net);
-        dap.startBruteForce(net);
+        //DemandAP dap = new DemandAP(net);
+        //dap.startBruteForce(net);
+         DDAP ddap = new DDAP(net);
+        ddap.StartBruteForce(NUMBEROFROUNDS);
     }
 }
