@@ -6,6 +6,8 @@
 package pstkm;
 
 import java.io.IOException;
+import java.io.File;
+import java.util.Scanner;
 
 /**
  *
@@ -25,18 +27,33 @@ public class PSTKM {
     	 * 	ja wpisalem tam: /Users/robert/Documents/PSTKM_cw/pstkm_cw1.txt
     	 */
     	Parser parser = null;
-    	try {
-			parser = new Parser(args[0]);
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.out.println("Parser Exception: " + e);
+        String pathToFile = "";
+
+    	if (args.length > 0) {
+            pathToFile = args[0];
+		} else {
+            Scanner scanner = new Scanner(System.in);
+            while(!(new File(pathToFile).isFile())) {
+                System.out.println("Please enter path to file with network description. To terminate press [N]:");
+                pathToFile = scanner.next();
+                if (pathToFile.equals("N")) {
+                    System.exit(0);
+                }
+            }
 		}
-    	
+
+        try {
+            parser = new Parser(pathToFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Parser Exception: " + e);
+        }
+
     	Net net = new Net();
     	net.setListOfLinks(parser.parseNetPart());
     	net.setListOfDemands(parser.parseDemandPart());
-    
-    	
+
+
     	// temporary printing links
     	for(Link lk : net.getListOfLinks()){
 			System.out.println(lk);
@@ -44,13 +61,9 @@ public class PSTKM {
         for(Demand lk : net.getListOfDemands()){
 			System.out.println(lk);
 		}
-    	
-    	
+
     	//start of DAP brute force
         DemandAP dap = new DemandAP(net);
         dap.startBruteForce(net);
-    	
-    	
     }
-    
 }
