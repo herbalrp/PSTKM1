@@ -6,7 +6,6 @@
 package pstkm;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  *
@@ -47,7 +46,9 @@ public class PSTKM {
 		}
     	
     	
-    	
+    	//start of DAP brute force
+        DemandAP dap = new DemandAP(net);
+        dap.startBruteForce(net);
     	
     	
     }
