@@ -61,7 +61,7 @@ public class Parser {
 		//System.out.println(netPart);
 		String lines[] = netPart.split("\\r?\\n");
 		
-		for(int i = 1; i<=Integer.parseInt(lines[0]); i++){
+		for(int i = 1; i<=Integer.parseInt(lines[0].trim()); i++){
 			//System.out.println(lines[i]);
 			String linkParts[] = lines[i].split(" ");
 			Link link = new Link(i, Integer.parseInt(linkParts[0]), Integer.parseInt(linkParts[1]),Integer.parseInt(linkParts[2]),Float.parseFloat(linkParts[3]),Integer.parseInt(linkParts[4]));
