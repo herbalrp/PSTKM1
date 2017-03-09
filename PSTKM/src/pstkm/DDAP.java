@@ -18,7 +18,8 @@ public class DDAP {
     
     Net net;
     
-     public DDAP(Net net) {
+     public DDAP(Net net) 
+    {
       
         this.net=net;
     }
@@ -26,14 +27,14 @@ public class DDAP {
      
     List<List<List>> ListOfSolutions = new ArrayList();
     List<List> solution = new ArrayList();
-     List<List> TheBestSolution = new ArrayList();
-      float TheBestCost = 0;
-       List<Integer> TheBestlambdasOnLink = new ArrayList();
+    List<List> TheBestSolution = new ArrayList();
+    float TheBestCost = 0;
+    List<Integer> TheBestlambdasOnLink = new ArrayList();
     List<Integer> lambdasOnLink = new ArrayList();
     List<Float> ListOfCosts = new ArrayList();
     float cost; //zmienna używana przez metodę checkAndCountSolution
     
-    public void StartBruteForce(Integer NumberOfRound)
+    public List<List<List>> StartBruteForce(Integer NumberOfRound)
     {
        ListOfSolutions = new ArrayList();       
        ListOfCosts = new ArrayList();
@@ -42,31 +43,33 @@ public class DDAP {
        TheBestlambdasOnLink = new ArrayList();
        for(int k=0; k<NumberOfRound; k++)
        {
-       solution = new ArrayList();
-     lambdasOnLink = new ArrayList();
-      for(int i = 0; i<net.getListOfLinks().size(); i++) {
-            lambdasOnLink.add(0);
+            solution = new ArrayList();
+            lambdasOnLink = new ArrayList();
+            for(int i = 0; i<net.getListOfLinks().size(); i++) {
+                lambdasOnLink.add(0);
         }
-       BruteForce(net);
+            BruteForce(net);
        }
        System.out.println("The best solution:");
-           System.out.println("Total cost: "+TheBestCost);
+       System.out.println("Total cost: "+TheBestCost);
        for(int k = 0; k <TheBestSolution.size(); k++) {
-            System.out.println("Demand " + (k+1));
-            System.out.println("H: " +net.getListOfDemands().get(k).getdemandVolume());
-            System.out.println("Solution: ");
+          //  System.out.println("Demand " + (k+1));
+          //  System.out.println("H: " +net.getListOfDemands().get(k).getdemandVolume());
+          //  System.out.println("Solution: ");
             for(int l = 0; l<TheBestSolution.get(k).size(); l++) {
-                System.out.println(TheBestSolution.get(k).get(l));
+            //    System.out.println(TheBestSolution.get(k).get(l));
             }
         }
        for(int l = 0; l<TheBestlambdasOnLink.size(); l++) {
-            System.out.println("Link: " +(l+1));
-            System.out.println("Number of lambdas: " +TheBestlambdasOnLink.get(l));
-            Float costOfLink = count(TheBestlambdasOnLink.get(l),net.getListOfLinks().get(l).getNumberOfLambdas(),net.getListOfLinks().get(l).getCostOfFibre());
-            System.out.println("Cost: " +costOfLink);
-            System.out.println("Max number of lambdas on link: " +(net.getListOfLinks().get(l).getNumberOfLambdas() * net.getListOfLinks().get(l).getNumberOfFibres()));
+            //System.out.println("Link: " +(l+1));
+           // System.out.println("Number of lambdas: " +TheBestlambdasOnLink.get(l));
+           // Float costOfLink = count(TheBestlambdasOnLink.get(l),net.getListOfLinks().get(l).getNumberOfLambdas(),net.getListOfLinks().get(l).getCostOfFibre());
+           // System.out.println("Cost: " +costOfLink);
+           // System.out.println("Max number of lambdas on link: " +(net.getListOfLinks().get(l).getNumberOfLambdas() * net.getListOfLinks().get(l).getNumberOfFibres()));
             
         }
+       
+       return ListOfSolutions;
     
     }
     
@@ -84,7 +87,7 @@ public class DDAP {
             for(int j = 0; j<listaPolaczen.size(); j++) {
                 int lambdasOnPath = rand.nextInt((max + 1));
                 if(j+1 >= listaPolaczen.size()) {
-                    lambdasOnPath = max;
+                lambdasOnPath = max;
                 }
                 
                 demandList.add(lambdasOnPath);
@@ -96,11 +99,11 @@ public class DDAP {
         
         //wypisanie rozwiązań
         for(int k = 0; k <solution.size(); k++) {
-            System.out.println("Demand " + (k+1));
-            System.out.println("H: " +net.getListOfDemands().get(k).getdemandVolume());
-            System.out.println("Solution: ");
+          //  System.out.println("Demand " + (k+1));
+          //  System.out.println("H: " +net.getListOfDemands().get(k).getdemandVolume());
+           // System.out.println("Solution: ");
             for(int l = 0; l<solution.get(k).size(); l++) {
-                System.out.println(solution.get(k).get(l));
+           //     System.out.println(solution.get(k).get(l));
             }
         }
         //sprawdzenie rozwiązania, w przypadku niepowodzenia powtórzenie
@@ -138,18 +141,18 @@ public class DDAP {
         }
         //wyliczenie kosztu, wypisanie linku i przypisanej liczby lambd
         for(int l = 0; l<lambdasOnLink.size(); l++) {
-            System.out.println("Link: " +(l+1));
-            System.out.println("Number of lambdas: " +lambdasOnLink.get(l));
+          //  System.out.println("Link: " +(l+1));
+          //  System.out.println("Number of lambdas: " +lambdasOnLink.get(l));
             Float costOfLink = count(lambdasOnLink.get(l),net.getListOfLinks().get(l).getNumberOfLambdas(),net.getListOfLinks().get(l).getCostOfFibre());
             cost+=costOfLink;
-            System.out.println("Cost: " +costOfLink);
-            System.out.println("Max number of lambdas on link: " +(net.getListOfLinks().get(l).getNumberOfLambdas() * net.getListOfLinks().get(l).getNumberOfFibres()));
+          //  System.out.println("Cost: " +costOfLink);
+           // System.out.println("Max number of lambdas on link: " +(net.getListOfLinks().get(l).getNumberOfLambdas() * net.getListOfLinks().get(l).getNumberOfFibres()));
             if(lambdasOnLink.get(l) > net.getListOfLinks().get(l).getNumberOfLambdas() * net.getListOfLinks().get(l).getNumberOfFibres()) {
                 return false;
             }
         }
-         System.out.println("Total cost: "+cost);
-        System.out.println("DAP successfully completed.");
+       //  System.out.println("Total cost: "+cost);
+       // System.out.println("DAP successfully completed.");
         return true;
     }
 

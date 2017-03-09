@@ -7,6 +7,8 @@ package pstkm;
 
 import java.io.IOException;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -26,7 +28,10 @@ public class PSTKM {
     	 * 	zeby to zrobic z IDE to dodajemy to w konfiguracji Run As.. i jest to sciezka
     	 * 	ja wpisalem tam: /Users/robert/Documents/PSTKM_cw/pstkm_cw1.txt
     	 */
-         final Integer NUMBEROFROUNDS=10000;
+         final Integer NUMBEROFROUNDS=100;
+         final Integer POPULATIONSIZE=100; //Liczebność populacji
+         final Integer NUMBEROFPOPULATION=20;//Liczba kolejnych populacji
+         final float PROBABILITYOFMUTATION=(float)0.5; //prawdopodobieństwo mutacji chromosomu <0-1>
     	Parser parser = null;
         String pathToFile = "";
        
@@ -67,6 +72,14 @@ public class PSTKM {
         //DemandAP dap = new DemandAP(net);
         //dap.startBruteForce(net);
          DDAP ddap = new DDAP(net);
-        ddap.StartBruteForce(NUMBEROFROUNDS);
+    //   List<List<List>> list =  ddap.StartBruteForce(NUMBEROFROUNDS);
+    //   List<Chromosome> list2 = new ArrayList();
+     //  for(int i=0; i<list.size();i++)
+     //  {
+     //      list2.add(new Chromosome(list.get(i)));
+      // }
+     //  Evolution ev = new Evolution(list2, POPULATIONSIZE, NUMBEROFPOPULATION, PROBABILITYOFMUTATION, net);
+     //  ev.start();
+      // ddap.StartBruteForce(100000);
     }
 }
