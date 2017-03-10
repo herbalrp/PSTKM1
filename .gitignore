@@ -1,4 +1,5 @@
 /PSTKM/build/
+/PSTKM/nbproject/
 /.idea/
 /out/
 *.iml
