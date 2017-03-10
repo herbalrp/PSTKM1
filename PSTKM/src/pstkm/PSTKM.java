@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pstkm;
 
+<<<<<<< HEAD
 import java.io.IOException;
 import java.io.File;
 import java.util.ArrayList;
@@ -81,5 +77,13 @@ public class PSTKM {
      //  Evolution ev = new Evolution(list2, POPULATIONSIZE, NUMBEROFPOPULATION, PROBABILITYOFMUTATION, net);
      //  ev.start();
       // ddap.StartBruteForce(100000);
+=======
+public class PSTKM {
+
+    public static void main(String[] args)
+    {
+        Start start = new Start(args);
+        start.start();
+>>>>>>> origin/master
     }
 }
