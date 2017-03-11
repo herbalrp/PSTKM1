@@ -30,16 +30,28 @@ public class Evolution {
             mutate();
             select();
         }
-        
+
         System.out.println("The best solution:");
-       System.out.println("Total cost: "+ListOfChromosome.get(0).cost);
-       for(int k = 0; k <ListOfChromosome.get(0).ListOfTablesS.size(); k++) {
+        _writeBestSolutionToConsole(ListOfChromosome.get(0));
+        System.out.println("Total cost: "+ListOfChromosome.get(0).cost);
+        for(int k = 0; k <ListOfChromosome.get(0).ListOfTablesS.size(); k++) {
          // System.out.println("Demand " + (k+1));
          //   System.out.println("H: " +net.getListOfDemands().get(k).getdemandVolume());
          //   System.out.println("Solution: ");
             for(int l = 0; l<ListOfChromosome.get(0).ListOfTablesS.get(k).size(); l++) {
              //   System.out.println(ListOfChromosome.get(0).ListOfTablesS.get(k).get(l));
             }
+        }
+    }
+
+    private void _writeBestSolutionToConsole(Chromosome chromosome) {
+        for (List<Integer> genes : chromosome.ListOfTablesS)
+        {
+            for (Integer integer : genes)
+            {
+                System.out.print("|" + integer);
+            }
+            System.out.println("|");
         }
     }
 
