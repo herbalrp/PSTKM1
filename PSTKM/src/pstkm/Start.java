@@ -85,10 +85,8 @@ public class Start {
         //start of DAP brute force
         //DemandAP dap = new DemandAP(net);
         //dap.startBruteForce(net);
-//        DDAP ddap = new DDAP(net);
-//        ddap.StartBruteForce(c_NumberOfRounds);
-        PopulationMaker popMaker = new PopulationMaker(m_Network);
-        popMaker.getPopulation(100);
+        DDAP ddap = new DDAP(m_Network);
+        ddap.StartBruteForce(c_NumberOfRounds);
     }
 
     private void _openFileWithNetwork(String path)
