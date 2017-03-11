@@ -1,16 +1,10 @@
 package pstkm;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-/**
- * Class that loads configuration file and splits into two blocks
- * @author robert
- *
- */
 public class Parser {
 
 	private String netPart = null;

@@ -5,13 +5,14 @@
  */
 package pstkm;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  *
  * @author Mateusz
  */
-public class Chromosome implements Comparable<Chromosome>{
+public class Chromosome implements Comparable<Chromosome>, Serializable{
     
     public List<List> ListOfTablesS;
     public float cost;
