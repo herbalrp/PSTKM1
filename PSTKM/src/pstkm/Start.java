@@ -13,6 +13,8 @@ public class Start {
     String m_PathToFile = "";
     Net m_Network = null;
     List<Chromosome> m_Population;
+    final long seed = 123223923;
+    final float ProbabilityOfCrossing = (float) 0.5;
 
     public Start(String[] args)
     {
@@ -132,7 +134,7 @@ public class Start {
             sizeOfPopulation = scanner.nextInt();
         }
 
-        PopulationMaker populationMaker = new PopulationMaker(m_Network);
+        PopulationMaker populationMaker = new PopulationMaker(m_Network, seed);
         populationMaker.getPopulation(sizeOfPopulation);
         if (populationMaker.serializePopulation(pathToFile))
         {
@@ -154,7 +156,7 @@ public class Start {
             probabilityOfMutation = Float.parseFloat(parts[1]);
         }
 
-        Evolution evolution = new Evolution(m_Population, m_Population.size(), numberOfPopulations, probabilityOfMutation, m_Network);
+        Evolution evolution = new Evolution(m_Population, m_Population.size(), numberOfPopulations, probabilityOfMutation, ProbabilityOfCrossing, seed, m_Network);
         evolution.start();
     }
 }

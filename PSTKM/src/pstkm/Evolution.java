@@ -11,15 +11,19 @@ public class Evolution {
     Integer PopulationSize;
     Integer NumberOfPopulations;
     float ProbabilityOfMutation;
+    float ProbabilityOfCrossing;
     Net net;
+    long seed;
     
-    public Evolution(List<Chromosome> ListOfChromosome, Integer PopulationSize, Integer NumberOfPopulations, float ProbabilityOfMutation, Net net)
+    public Evolution(List<Chromosome> ListOfChromosome, Integer PopulationSize, Integer NumberOfPopulations, float ProbabilityOfMutation, float ProbabilityOfCrossing, long seed, Net net)
     {
         this.ListOfChromosome=ListOfChromosome;        
         this.PopulationSize=PopulationSize;
         this.NumberOfPopulations=NumberOfPopulations;
         this.ProbabilityOfMutation=ProbabilityOfMutation;
+        this.ProbabilityOfCrossing=ProbabilityOfCrossing;
         this.net=net;
+        this.seed=seed;
     }
     
     public void start()
@@ -45,12 +49,13 @@ public class Evolution {
     }
 
     private void _writeBestSolutionToConsole(Chromosome chromosome) {
+        int x=1;
         for (List<Integer> genes : chromosome.ListOfTablesS)
         {
-            for (Integer integer : genes)
-            {
-                System.out.print("|" + integer);
-            }
+            
+            System.out.println(x);
+            x++;
+            genes.stream().forEach(g -> System.out.print("|" +g));
             System.out.println("|");
         }
     }
@@ -59,10 +64,15 @@ public class Evolution {
        
         Integer size = ListOfChromosome.size();
         Integer NumberOfPair=size/2;
-        Random rand = new Random();
+        Random rand = new Random(seed);
         
         for(int i=0; i<NumberOfPair; i++)
         {
+            float x = rand.nextFloat();
+            if(x>ProbabilityOfCrossing)
+            {
+                continue;
+            }
             Integer Index1 = rand.nextInt(NumberOfPair-1);
             Integer Index2 = NumberOfPair+rand.nextInt(NumberOfPair-1);
             
@@ -76,7 +86,7 @@ public class Evolution {
 
     private void mutate() {
         
-        Random rand = new Random();
+        Random rand = new Random(seed);
         
         for (int i=0; i<ListOfChromosome.size();i++)
         {
@@ -171,7 +181,7 @@ public class Evolution {
 
     private List<Chromosome> crossThisPair(List<List> Chromosome1, List<List> Chromosome2) {
         
-        Random rand = new Random();
+        Random rand = new Random(seed);
         Integer NumberOfChanges=rand.nextInt(Chromosome1.size()-1);
          
         for(int i=0; i<NumberOfChanges; i++)
@@ -190,7 +200,7 @@ public class Evolution {
 
     private List<Integer> newGene(List Gene) {
         
-        Random rand = new Random();
+        Random rand = new Random(seed);
         Integer sum=0;
         for(int i=0;i<Gene.size();i++)
         {
