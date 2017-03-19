@@ -22,12 +22,12 @@ public class Parser {
 				if (firstPart) {
 					if (!line.equals("-1")) {
 
-						netPart.append(line);
+						netPart.append(line.trim());
 						netPart.append(System.lineSeparator());
 					}else
 					firstPart = false;
 				} else {
-					demandPart.append(line);
+					demandPart.append(line.trim());
 					demandPart.append(System.lineSeparator());
 				}
 				line = br.readLine();
