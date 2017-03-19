@@ -14,6 +14,7 @@ public class Evolution {
     float ProbabilityOfCrossing;
     Net net;
     long seed;
+	Random rand;
     
     public Evolution(List<Chromosome> ListOfChromosome, Integer PopulationSize, Integer NumberOfPopulations, float ProbabilityOfMutation, float ProbabilityOfCrossing, long seed, Net net)
     {
@@ -24,6 +25,8 @@ public class Evolution {
         this.ProbabilityOfCrossing=ProbabilityOfCrossing;
         this.net=net;
         this.seed=seed;
+	rand = new Random(seed);
+
     }
     
     public void start()
@@ -64,7 +67,7 @@ public class Evolution {
        
         Integer size = ListOfChromosome.size();
         Integer NumberOfPair=size/2;
-        Random rand = new Random(seed);
+        
         
         for(int i=0; i<NumberOfPair; i++)
         {
@@ -86,7 +89,7 @@ public class Evolution {
 
     private void mutate() {
         
-        Random rand = new Random(seed);
+        
         
         for (int i=0; i<ListOfChromosome.size();i++)
         {
@@ -181,26 +184,28 @@ public class Evolution {
 
     private List<Chromosome> crossThisPair(List<List> Chromosome1, List<List> Chromosome2) {
         
-        Random rand = new Random(seed);
-        Integer NumberOfChanges=rand.nextInt(Chromosome1.size()-1);
-         
+       
+        List<List> Chromosome1k = copy(Chromosome1);
+        List<List> Chromosome2k = copy(Chromosome2);
+        Integer NumberOfChanges=rand.nextInt(Chromosome1k.size()-1)+1;
+                 
         for(int i=0; i<NumberOfChanges; i++)
         {
-            Integer IndexOfGene=rand.nextInt(Chromosome1.size()-1);
-            List<Integer> Gene1 = Chromosome1.get(IndexOfGene);
-            Chromosome1.set(IndexOfGene, Chromosome2.get(IndexOfGene));
-            Chromosome2.set(IndexOfGene, Gene1);
+            Integer IndexOfGene=rand.nextInt(Chromosome1k.size()-1);
+            List<Integer> Gene1 = Chromosome1k.get(IndexOfGene);
+            Chromosome1k.set(IndexOfGene, Chromosome2k.get(IndexOfGene));
+            Chromosome2k.set(IndexOfGene, Gene1);
         }
         
         List<Chromosome> Children = new ArrayList();
-        Children.add(new Chromosome (Chromosome1));
-        Children.add(new Chromosome(Chromosome2));
+        Children.add(new Chromosome (Chromosome1k));
+        Children.add(new Chromosome(Chromosome2k));
         return Children;
     }
 
     private List<Integer> newGene(List Gene) {
         
-        Random rand = new Random(seed);
+        
         Integer sum=0;
         for(int i=0;i<Gene.size();i++)
         {
@@ -226,4 +231,24 @@ public class Evolution {
         
         return Gene;
     }
+
+
+    private List<List> copy(List<List> Chromosome1) {
+        List<List> list = new ArrayList();
+        
+        for(int i=0; i<Chromosome1.size(); i++)
+        {
+            List list2 = new ArrayList();
+            
+            for(int j=0; j<Chromosome1.get(i).size(); j++)
+            {
+                list2.add(Chromosome1.get(i).get(j));
+            }
+            
+            list.add(list2);
+            
+        }
+        return list;
+    }
+
 }

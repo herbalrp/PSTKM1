@@ -9,6 +9,7 @@ public class PopulationMaker {
     List<Chromosome> m_Population;
     Net m_Network;
     long m_seed;
+	Random rand;
 
     public PopulationMaker() {  }
 
@@ -18,6 +19,8 @@ public class PopulationMaker {
     {
         this.m_Network = net;
         this.m_seed = seed;
+		rand = new Random(m_seed);
+
     }
 
     public List<Chromosome> getPopulation(int m_NumberOfChromosomes)
@@ -45,7 +48,7 @@ public class PopulationMaker {
         {
             int h = m_Network.getListOfDemands().get(i).getdemandVolume();
             int max = h;
-            Random rand = new Random(m_seed);
+            
 
             List listOfConnections = m_Network.getListOfDemands().get(i).getListOfPaths();
             List<Integer> demandList = new ArrayList();
