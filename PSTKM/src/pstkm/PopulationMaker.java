@@ -9,6 +9,7 @@ public class PopulationMaker {
     List<Chromosome> m_Population;
     Net m_Network;
     long m_seed;
+     Random rand;
 
     public PopulationMaker() {  }
 
@@ -18,6 +19,7 @@ public class PopulationMaker {
     {
         this.m_Network = net;
         this.m_seed = seed;
+         rand = new Random(m_seed);
     }
 
     public List<Chromosome> getPopulation(int m_NumberOfChromosomes)
@@ -39,19 +41,22 @@ public class PopulationMaker {
 
     private void _generateChromosome()
     {
+        try{
         List<List> solution = new ArrayList();
-
+      
+        
         for(int i = 0; i < m_Network.getListOfDemands().size(); i++)
         {
             int h = m_Network.getListOfDemands().get(i).getdemandVolume();
             int max = h;
-            Random rand = new Random(m_seed);
+            
 
             List listOfConnections = m_Network.getListOfDemands().get(i).getListOfPaths();
             List<Integer> demandList = new ArrayList();
 
             for (int j = 0; j < listOfConnections.size(); j++)
             {
+                
                 int lambdasOnPath = rand.nextInt((max + 1));
                 if(j+1 >= listOfConnections.size())
                 {
@@ -73,6 +78,10 @@ public class PopulationMaker {
         else
         {
             _generateChromosome();
+        }}
+        catch (Exception e)
+        {
+            System.out.println("UWAGA: "+e.toString());
         }
     }
 
@@ -104,6 +113,7 @@ public class PopulationMaker {
 
         for (int l = 0; l < lambdasOnLink.size(); l++)
         {
+            int h = m_Network.getListOfLinks().get(l).getNumberOfLambdas() * m_Network.getListOfLinks().get(l).getNumberOfFibres();
             if(lambdasOnLink.get(l) > m_Network.getListOfLinks().get(l).getNumberOfLambdas() * m_Network.getListOfLinks().get(l).getNumberOfFibres())
             {
                 return false;
