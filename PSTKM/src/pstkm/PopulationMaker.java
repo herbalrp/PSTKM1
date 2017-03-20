@@ -42,8 +42,15 @@ public class PopulationMaker {
 
     private void _generateChromosome()
     {
-        List<List> solution = new ArrayList();
-
+        try{
+            
+            boolean done = false;
+                    
+        while(!done)
+        {
+            List<List> solution = new ArrayList();
+      
+        
         for(int i = 0; i < m_Network.getListOfDemands().size(); i++)
         {
             int h = m_Network.getListOfDemands().get(i).getdemandVolume();
@@ -51,20 +58,35 @@ public class PopulationMaker {
             
 
             List listOfConnections = m_Network.getListOfDemands().get(i).getListOfPaths();
+            if(listOfConnections.size()<=1)
+            {
+                int c= 6;
+            }
             List<Integer> demandList = new ArrayList();
 
             for (int j = 0; j < listOfConnections.size(); j++)
             {
-                int lambdasOnPath = rand.nextInt((max + 1));
-                if(j+1 >= listOfConnections.size())
-                {
-                    lambdasOnPath = max;
-                }
+                
+              
 
-                demandList.add(lambdasOnPath);
+                demandList.add(0);
 
-                max = max - lambdasOnPath;
+               
             }
+             int in;
+            if(demandList.size() <2)
+            {
+                in=0;
+            } else
+            {
+                in = rand.nextInt(demandList.size()-1);
+            }
+           
+            if(in<0)
+            {
+                in=in*(-1);
+            }
+            demandList.set(in, max);
             solution.add(demandList);
         }
 
@@ -72,14 +94,18 @@ public class PopulationMaker {
         {
             Chromosome newChromosome = new Chromosome(solution);
             m_Population.add(newChromosome);
+            done=true;
         }
-        else
+       
+        }
+            
+        }
+        catch (Exception e)
         {
-            _generateChromosome();
+            System.out.println("UWAGA: "+e.toString());
         }
     }
-
-    private boolean _checkSolution(List<List> solution)
+     private boolean _checkSolution(List<List> solution)
     {
         List<Integer> lambdasOnLink = new ArrayList();
 
@@ -107,6 +133,7 @@ public class PopulationMaker {
 
         for (int l = 0; l < lambdasOnLink.size(); l++)
         {
+            int h = m_Network.getListOfLinks().get(l).getNumberOfLambdas() * m_Network.getListOfLinks().get(l).getNumberOfFibres();
             if(lambdasOnLink.get(l) > m_Network.getListOfLinks().get(l).getNumberOfLambdas() * m_Network.getListOfLinks().get(l).getNumberOfFibres())
             {
                 return false;
@@ -114,7 +141,6 @@ public class PopulationMaker {
         }
         return true;
     }
-
     public boolean serializePopulation(String pathToFile)
     {
         boolean isGenerated = false;
